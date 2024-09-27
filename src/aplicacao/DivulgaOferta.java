@@ -19,7 +19,8 @@ public class DivulgaOferta {
 		FilaCliente filaCliente = new FilaCliente();
 		filaCliente.init();
 
-		int opcao, op = 0, whatsapp, cpf;
+		int opcao, op = 0, whatsapp;
+		long cpf = 0;
 		String nome;
 		double totalGasto = 0;
 
@@ -48,11 +49,12 @@ public class DivulgaOferta {
 					le.nextLine();
 					nome = le.nextLine();
 					System.out.print("Digite CPF: ");
-					cpf = le.nextInt();
+					cpf = le.nextLong();
 					System.out.print("Whatsapp: ");
 					whatsapp = le.nextInt();
 					System.out.print("Informe total gasto do cliente R$: ");
 					totalGasto = le.nextDouble();
+
 					/*
 					 * Intancia um objeto da classe Cliente e insere na ABB cadastro organizada pelo CPF
 					 */

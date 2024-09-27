@@ -2,13 +2,13 @@ package objetos;
 
 public class Clientes {
 
-	private int cpf;
+	private long cpf;
 	private String nome;
 	private int whatsapp;
 	private double totalGasto;
 	private boolean apto;
 	
-	public Clientes( String nome, int cpf, int whatsapp, double totalGasto) {
+	public Clientes( String nome, long cpf, int whatsapp, double totalGasto) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -22,11 +22,11 @@ public class Clientes {
 				+ ", apto=" + apto + "]";
 	}
 
-	public int getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
 

@@ -5,7 +5,7 @@ import objetos.Clientes;
 public class ArvoreCliente {
 
 		private class ARVORE {
-			int dado;
+			long dado;
 			ARVORE esq;
 			ARVORE dir;
 		}
@@ -13,7 +13,7 @@ public class ArvoreCliente {
 		public ARVORE root = null;
 
 		//(cadastro.root, cliente)
-		public ARVORE inserir(ARVORE p, int info) {
+		public ARVORE inserir(ARVORE p, long info) {
 			// insere elemento em uma ABB
 			if (p == null) {
 				p = new ARVORE();
