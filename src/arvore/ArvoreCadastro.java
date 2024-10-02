@@ -1,51 +1,83 @@
 package arvore;
 
-import objetos.Clientes;
+import fila.FilaOferta;
+import objetos.Cliente;
 
-public class ArvoreCadastro{
+public class ArvoreCadastro {
 
-		private class ARVORE {
-			int dado;
-			ARVORE esq;
-			ARVORE dir;
-		}
+    private class ARVORE {
+        Cliente dado;
+        ARVORE esq;
+        ARVORE dir;
+    }
 
-		public ARVORE root = null;
+    public ARVORE root = null;
 
-		//(cadastro.root, cliente)
-		public ARVORE inserir(ARVORE p, Clientes cliente) {
-			// insere elemento em uma ABB
-			if (p == null) {
-				p = new ARVORE();
-				p.dado = cliente.getCpf();
-				p.esq = null;
-				p.dir = null;
-			} else if (cliente.getCpf() < p.dado)
-				p.esq = inserir(p.esq, cliente.getCpf());
-			else
-				p.dir = inserir(p.dir, cliente.getCpf());
-			return p;
-		}
+    public ARVORE inserir(ARVORE p, Cliente cliente) {
+        if (p == null) {
+            p = new ARVORE();
+            p.dado = cliente;
+            p.esq = null;
+            p.dir = null;
+        } else if (cliente.getCpf() < p.dado.getCpf())
+            p.esq = inserir(p.esq, cliente);
+        else
+            p.dir = inserir(p.dir, cliente);
+        return p;
+    }
 
-		public void show(ARVORE p) {
-			if (p != null) {
-				show(p.esq);
-				System.out.print("\t" + p.dado);
-				show(p.dir);
-			}
-		}
+    public void show(ARVORE p) {
+        if (p != null) {
+            show(p.esq);
+            System.out.print("\t" + p.dado);
+            show(p.dir);
+        }
+    }
 
-		public boolean consulta(ARVORE p, int info) {
-			boolean achou = false;
-			if (p != null) {
-				if (info == p.dado)
-					achou = true;
-				else if (info < p.dado)
-					achou = consulta(p.esq, info);
-				else
-					achou = consulta(p.dir, info);
-			}
-			return achou;
-		}
-		
+    public boolean consulta(ARVORE p, long cpf) {
+        if (p == null) return false;
+        if (cpf == p.dado.getCpf()) return true;
+        return cpf < p.dado.getCpf() ? consulta(p.esq, cpf) : consulta(p.dir, cpf);
+    }
+
+    public ARVORE removeValor(ARVORE p, long cpf) {
+        if (p == null) return null;
+
+        if (cpf == p.dado.getCpf()) {
+            if (p.esq == null && p.dir == null) return null;
+            if (p.esq == null) return p.dir;
+            if (p.dir == null) return p.esq;
+
+            ARVORE aux = p.dir;
+            while (aux.esq != null) aux = aux.esq;
+            p.dado = aux.dado;
+            p.dir = removeValor(p.dir, aux.dado.getCpf());
+        } else if (cpf < p.dado.getCpf()) {
+            p.esq = removeValor(p.esq, cpf);
+        } else {
+            p.dir = removeValor(p.dir, cpf);
+        }
+        return p;
+    }
+
+    public void gerarFila(ARVORE p, double valorMinimo, FilaOferta fila) {
+        if (p != null) {
+            gerarFila(p.dir, valorMinimo, fila);  // Ordem decrescente
+            if (p.dado.getTotalGasto() >= valorMinimo) {
+                fila.enqueue(p.dado);
+            }
+            gerarFila(p.esq, valorMinimo, fila);
+        }
+    }
+
+    public double somaGastos(ARVORE p) {
+        if (p == null) return 0;
+        return p.dado.getTotalGasto() + somaGastos(p.esq) + somaGastos(p.dir);
+    }
+
+    public int contarClientesAcimaDe(ARVORE p, double valorMinimo) {
+        if (p == null) return 0;
+        int count = (p.dado.getTotalGasto() >= valorMinimo) ? 1 : 0;
+        return count + contarClientesAcimaDe(p.esq, valorMinimo) + contarClientesAcimaDe(p.dir, valorMinimo);
+    }
 }

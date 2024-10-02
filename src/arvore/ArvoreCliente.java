@@ -1,52 +1,52 @@
 package arvore;
 
-import objetos.Clientes;
-
 public class ArvoreCliente {
 
-		private class ARVORE {
-			int dado;
-			ARVORE esq;
-			ARVORE dir;
+	//inserir pelo gastos
+
+	private class ARVORE {
+		long dado;
+		ARVORE esq;
+		ARVORE dir;
+	}
+
+	public ARVORE root = null;
+
+
+	public ARVORE inserir(ARVORE p, long info) {
+		// insere elemento em uma ABB
+		if (p == null) {
+			p = new ARVORE();
+			p.dado = info;
+			p.esq = null;
+			p.dir = null;
+		} else if (info < p.dado)
+			p.esq = inserir(p.esq, info);
+		else
+			p.dir = inserir(p.dir, info);
+		return p;
+	}
+
+	public void show(ARVORE p) {
+		if (p != null) {
+			show(p.esq);
+			System.out.print("\t" + p.dado);
+			show(p.dir);
 		}
+	}
 
-		public ARVORE root = null;
-
-		//(cadastro.root, cliente)
-		public ARVORE inserir(ARVORE p, int info) {
-			// insere elemento em uma ABB
-			if (p == null) {
-				p = new ARVORE();
-				p.dado = info;
-				p.esq = null;
-				p.dir = null;
-			} else if (info < p.dado)
-				p.esq = inserir(p.esq, info);
+	public boolean consulta(ARVORE p, double info) {
+		boolean achou = false;
+		if (p != null) {
+			if (info == p.dado)
+				achou = true;
+			else if (info < p.dado)
+				achou = consulta(p.esq, info);
 			else
-				p.dir = inserir(p.dir, info);
-			return p;
+				achou = consulta(p.dir, info);
 		}
-
-		public void show(ARVORE p) {
-			if (p != null) {
-				show(p.esq);
-				System.out.print("\t" + p.dado);
-				show(p.dir);
-			}
-		}
-
-		public boolean consulta(ARVORE p, double info) {
-			boolean achou = false;
-			if (p != null) {
-				if (info == p.dado)
-					achou = true;
-				else if (info < p.dado)
-					achou = consulta(p.esq, info);
-				else
-					achou = consulta(p.dir, info);
-			}
-			return achou;
-		}
+		return achou;
+	}
 
 	public ARVORE removeValor(ARVORE p, int info) {
 		if (p != null) {
@@ -82,5 +82,4 @@ public class ArvoreCliente {
 		}
 		return p;
 	}
-		
 }

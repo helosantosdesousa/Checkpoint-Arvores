@@ -1,0 +1,17 @@
+Index: src/aplicacao/DivulgaOferta.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/aplicacao/DivulgaOferta.java b/src/aplicacao/DivulgaOferta.java
+--- a/src/aplicacao/DivulgaOferta.java	
++++ b/src/aplicacao/DivulgaOferta.java	(date 1727448535709)
+@@ -56,7 +56,7 @@
+ 					*/
+ 				   Clientes cliente = new Clientes(nome, cpf, whatsapp, totalGasto);
+ 				   cadastro.root = cadastro.inserir(cadastro.root, cliente.getCpf());
+-				   cadastro.show(cadastro.root);
++				   //cadastro.show(cadastro.root\n);
+ 				   break;
+ 		   /* case 2:
+ 		    System.out.print("Qual o valor de saldo minimo exigido: R$ ");
